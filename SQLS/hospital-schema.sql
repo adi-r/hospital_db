@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS hospitalized (
     chk_in_date DATE NOT NULL,
     chk_out_date DATE,
     no_of_nights INT,
-    PRIMARY KEY (patient_id, room_no),
+    PRIMARY KEY (patient_id, room_no, chk_in_date),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (room_no) REFERENCES rooms(room_no)
 );
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS staff (
   name VARCHAR(255),
   address VARCHAR(255),
   phone VARCHAR(255),
-  staff_type VARCHAR(10) CHECK (staff_type IN ('physician', 'nurse'))
+  staff_type ENUM('physician', 'nurse')
 );
 
 CREATE TABLE IF NOT EXISTS physician (
@@ -122,10 +122,12 @@ CREATE TABLE IF NOT EXISTS executions (
 );
 
 CREATE TABLE IF NOT EXISTS invoice (
-	invoice_id INT PRIMARY KEY,
+	invoice_id INT NOT NULL,
     room_no INT NOT NULL,
     patient_id INT NOT NULL,
     execution_id INT NOT NULL,
+    amt DECIMAL(10,2),
+    PRIMARY KEY(invoice_id, execution_id),
 	FOREIGN KEY (room_no) REFERENCES rooms(room_no),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (execution_id) REFERENCES executions(execution_id)
@@ -135,14 +137,7 @@ CREATE TABLE IF NOT EXISTS payments (
 	pay_id INT PRIMARY KEY,
     invoice_id INT NOT NULL,
     pay_date DATE NOT NULL,
-    pay_amt DECIMAL(10,2) NOT NULL,
+    due_amt DECIMAL(10,2),
+    pay_amt DECIMAL(10,2),
     FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id)
 );
-
-
-
-
-
-
-
-
