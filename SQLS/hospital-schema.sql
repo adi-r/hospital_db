@@ -104,7 +104,11 @@ CREATE TABLE IF NOT EXISTS orders (
     physician_id INT NOT NULL,
     instruction_code INT NOT NULL,
     request_date DATE NOT NULL,
+<<<<<<< HEAD
 	PRIMARY KEY(order_id, instruction_code),
+=======
+PRIMARY KEY(order_id, instruction_code),
+>>>>>>> 2a99d5964ee5cd5a9421848d3f21741d11dd20ab
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
     FOREIGN KEY (instruction_code) REFERENCES instructions(instruction_code)
@@ -128,7 +132,11 @@ CREATE TABLE IF NOT EXISTS invoice (
     patient_id INT NOT NULL,
     execution_id INT NOT NULL,
     amt DECIMAL(10,2),
+<<<<<<< HEAD
     PRIMARY KEY(invoice_id, execution_id),
+=======
+    PRIMARY KEY(invoice_id),
+>>>>>>> 2a99d5964ee5cd5a9421848d3f21741d11dd20ab
 	FOREIGN KEY (room_no) REFERENCES rooms(room_no),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (execution_id) REFERENCES executions(execution_id)
@@ -141,4 +149,8 @@ CREATE TABLE IF NOT EXISTS payments (
     due_amt DECIMAL(10,2),
     pay_amt DECIMAL(10,2),
     FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id)
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> 2a99d5964ee5cd5a9421848d3f21741d11dd20ab

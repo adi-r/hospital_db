@@ -128,4 +128,8 @@ INSERT INTO invoice (invoice_id, room_no, patient_id, execution_id, amt) VALUES
 INSERT INTO payments (pay_id, invoice_id, pay_date, due_amt, pay_amt) VALUES
 (10001, 9001, '2023-01-03', NULL, NULL),
 (10003, 9003, '2023-03-15', NULL, NULL),
+<<<<<<< HEAD
 (10004, 9004, '2023-04-10', NULL, NULL);
+=======
+(10004, 9004, '2023-04-10', NULL, NULL);
+>>>>>>> 2a99d5964ee5cd5a9421848d3f21741d11dd20ab
