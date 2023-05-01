@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS invoice (
     patient_id INT NOT NULL,
     execution_id INT NOT NULL,
     amt DECIMAL(10,2),
-    PRIMARY KEY(invoice_id, execution_id),
+    PRIMARY KEY(invoice_id),
 	FOREIGN KEY (room_no) REFERENCES rooms(room_no),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (execution_id) REFERENCES executions(execution_id)
