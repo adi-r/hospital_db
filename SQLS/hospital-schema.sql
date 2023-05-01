@@ -99,11 +99,12 @@ CREATE TABLE IF NOT EXISTS instructions (
 
 
 CREATE TABLE IF NOT EXISTS orders (
-	order_id INT PRIMARY KEY,
+	order_id INT ,
     patient_id INT NOT NULL,
     physician_id INT NOT NULL,
     instruction_code INT NOT NULL,
     request_date DATE NOT NULL,
+PRIMARY KEY(order_id, instruction_code),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
     FOREIGN KEY (instruction_code) REFERENCES instructions(instruction_code)
