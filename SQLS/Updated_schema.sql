@@ -88,50 +88,45 @@ CREATE TABLE IF NOT EXISTS monitored (
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
     PRIMARY KEY (patient_id, physician_id)
-);
-
-CREATE TABLE IF NOT EXISTS instructions (
-    instruction_code INT PRIMARY KEY,
-    fee DECIMAL(10, 2) NOT NULL,
-    description TEXT
-);
+); 
 
 
 
 CREATE TABLE IF NOT EXISTS orders (
-	order_id INT ,
+	order_id INT PRIMARY KEY,
     patient_id INT NOT NULL,
     physician_id INT NOT NULL,
-    instruction_code INT NOT NULL,
     request_date DATE NOT NULL,
-	PRIMARY KEY(order_id, instruction_code),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
-    FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
-    FOREIGN KEY (instruction_code) REFERENCES instructions(instruction_code)
+    FOREIGN KEY (physician_id) REFERENCES physician(physician_id)
 );
 
-CREATE TABLE IF NOT EXISTS executions (
-	execution_id INT PRIMARY KEY,
-    patient_id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS instructions (
+    instruction_code INT PRIMARY KEY,
+    patient_id INT NOT NULL, 
+    order_id INT NOT NULL,
+    fee DECIMAL(10, 2) NOT NULL,
+    description TEXT,
     nurse_id INT NOT NULL,
-    instruction_code INT NOT NULL,
-    execution_date DATE NOT NULL,
+    execution_date DATE,
     status VARCHAR(255) NOT NULL,
-    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id),
-    FOREIGN KEY (instruction_code) REFERENCES instructions(instruction_code)
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
+
+
 
 CREATE TABLE IF NOT EXISTS invoice (
 	invoice_id INT NOT NULL,
     room_no INT NOT NULL,
     patient_id INT NOT NULL,
-    execution_id INT NOT NULL,
+    instructions_id INT NOT NULL,
     amt DECIMAL(10,2),
-    PRIMARY KEY(invoice_id, execution_id),
+    PRIMARY KEY(invoice_id),
 	FOREIGN KEY (room_no) REFERENCES rooms(room_no),
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
-    FOREIGN KEY (execution_id) REFERENCES executions(execution_id)
+    FOREIGN KEY (instructions_id) REFERENCES instructions(instruction_code)
 );
 
 CREATE TABLE IF NOT EXISTS payments (
