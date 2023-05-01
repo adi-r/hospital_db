@@ -83,7 +83,7 @@ WHERE health_records.disease = 'Pneumonia';
 SELECT AVG(no_of_nights) AS avg_length_of_stay
 FROM hospitalized h
 JOIN health_records hr USING(patient_id)
-WHERE h.disease = 'Pneumonia';
+WHERE hr.disease = 'Pneumonia';
 
 -- 12. Nested Query: Retrieve the names of the nurses who've treated patients with broken legs.
 SELECT s.name AS nurse_name 
